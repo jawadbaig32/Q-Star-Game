@@ -69,7 +69,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     public void RotateWithKeys()
     {
-
+        //Keys
 
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Horizontal") == 0)
         {
