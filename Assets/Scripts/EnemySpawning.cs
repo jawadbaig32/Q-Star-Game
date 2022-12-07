@@ -9,8 +9,14 @@ public class EnemySpawning : MonoBehaviour
     public GameObject[] objectToSpawn;
     Vector3 spawnPosition;
     public List<GameObject> spawnedObjList;
+    Vector3 spawnRotation;
 
 
+
+    private void Start()
+    {
+        spawnRotation = transform.eulerAngles;
+    }
 
     private void Awake()
     {
@@ -38,7 +44,7 @@ public class EnemySpawning : MonoBehaviour
         StartCoroutine(InstantiateDelay());
 
     }
-
+    //
 
     // DELAY in Spawn
     IEnumerator InstantiateDelay()
@@ -49,7 +55,11 @@ public class EnemySpawning : MonoBehaviour
         if (spawnedObjList.Count < 2)
         {
             int randomNum = Random.Range(0, 3);
+            
             GameObject b = Instantiate(objectToSpawn[randomNum], spawnPosition, Quaternion.identity);
+           // GameObject b= Instantiate(objectToSpawn[randomNum], spawnPosition, Quaternion.identity);
+            b.transform.LookAt(PlayerControllerScript.instance.transform);
+
             spawnedObjList.Add(b);
         }
     }

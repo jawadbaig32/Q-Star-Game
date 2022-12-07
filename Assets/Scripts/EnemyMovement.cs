@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class EnemyMovement : MonoBehaviour
 {
-   
-     public Transform target;
-     private float speed;
+
+    
+
+    public Transform target;
+    Vector3 target2;
+    private float speed;
     public int enemyHealth = 3;
     public int scoreToGiveonDeath;
      
@@ -17,12 +20,19 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = PlayerControllerScript.instance.transform;
+        
+        target2 = PlayerControllerScript.instance.transform.position;
+        transform.LookAt(target);
+        //transform.rotation = Quaternion.LookRotation(target2);
+
     }
 
     private void Update()
     {
         MoveEnemy_TowardsPlayer();
+        transform.eulerAngles = new Vector3(90f, 0f, 0f);
+        //transform.LookAt(target2);
+        
     }
 
 
@@ -32,7 +42,8 @@ public class EnemyMovement : MonoBehaviour
     {
         speed = Random.Range(0.5f, 2f);
         Vector3 startPos = transform.position;
-        transform.position=Vector3.MoveTowards(startPos, target.position, speed*Time.deltaTime);
+        transform.position=Vector3.MoveTowards(startPos, target2, speed*Time.deltaTime);
+       // transform.LookAt(target2);
     }
 
 
@@ -46,9 +57,7 @@ public class EnemyMovement : MonoBehaviour
         {
             GameObject b = this.gameObject;
             EnemySpawning.instance.spawnedObjList.Remove(b);
-            Destroy(b, 5);
-
-
+            Destroy(b, 0.1f);
 
             //Do When Shield Enabled 
             if (PlayerControllerScript.instance.shieldEnabled == true)
