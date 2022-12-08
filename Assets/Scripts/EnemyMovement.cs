@@ -13,26 +13,35 @@ public class EnemyMovement : MonoBehaviour
     private float speed;
     public int enemyHealth = 3;
     public int scoreToGiveonDeath;
-     
-     
+    public Transform lookAttarget;
+    
+
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+  
+
         target2 = PlayerControllerScript.instance.transform.position;
-        transform.LookAt(target);
+       SetAngle();
+
+
+        // transform.LookAt(EnemySpawning.instance.lookAttarget.transform);
         //transform.rotation = Quaternion.LookRotation(target2);
+        // transform.rotation = Quaternion.FromToRotation(transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z), PlayerControllerScript.instance.transform.position = new Vector3(PlayerControllerScript.instance.transform.position.x, PlayerControllerScript.instance.transform.position.y, PlayerControllerScript.instance.transform.position.z));
 
     }
 
     private void Update()
     {
         MoveEnemy_TowardsPlayer();
-        transform.eulerAngles = new Vector3(90f, 0f, 0f);
-        //transform.LookAt(target2);
-        
+        //transform.eulerAngles = new Vector3(90f, 0f, 0f);
+        //transform.eulerAngles = new Vector3(90f, 0f, 0f);
+        // transform.LookAt(lookAttarget);
+        //  transform.LookAt(target2);
+        //   transform.LookAt(target2);
     }
 
 
@@ -83,10 +92,12 @@ public class EnemyMovement : MonoBehaviour
                 if (PlayerControllerScript.instance.playerhealth == 2)
                 {
                     PlayerControllerScript.instance.playerH_Bar_green.SetActive(false);
+                    PlayerControllerScript.instance.playerH_Bar_yellow.SetActive(true);
                 }
               else  if (PlayerControllerScript.instance.playerhealth == 1)
                 {
                     PlayerControllerScript.instance.playerH_Bar_yellow.SetActive(false);
+                    PlayerControllerScript.instance.playerH_Bar_red.SetActive(true);
                 }
               else  if (PlayerControllerScript.instance.playerhealth == 0)
                 {
@@ -94,7 +105,6 @@ public class EnemyMovement : MonoBehaviour
                 }
             else    if (PlayerControllerScript.instance.playerhealth < 0)
                 {
-                    print("GameOver");
                     GameOver.ShowUI();
                 }
             }
@@ -112,6 +122,17 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+
+
+
+
+    public void SetAngle()
+    {
+        //transform.eulerAngles = new Vector3(90f, 0f, 0f);
+        transform.rotation = Quaternion.Euler(new Vector3(90f, this.transform.rotation.eulerAngles.y, 0f));
+        print("angle");
+
+    }
 
     //Enemy Death Function
     public void EnemyDied()

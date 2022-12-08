@@ -11,11 +11,15 @@ public class EnemySpawning : MonoBehaviour
     public List<GameObject> spawnedObjList;
     Vector3 spawnRotation;
 
+    public Transform lookAttarget;
+
 
 
     private void Start()
     {
         spawnRotation = transform.eulerAngles;
+        lookAttarget = PlayerControllerScript.instance.transform;
+       
     }
 
     private void Awake()
@@ -40,8 +44,9 @@ public class EnemySpawning : MonoBehaviour
 
         spawnPosition.x = (radius * Mathf.Cos(angle)) + centerPosition.x;
         spawnPosition.y = 0;
-        spawnPosition.z = (radius * Mathf.Sin(angle)) + centerPosition.z;
+        spawnPosition.z = (radius * Mathf.Sin(angle)) + centerPosition.z +4f;
         StartCoroutine(InstantiateDelay());
+
 
     }
     //
@@ -55,11 +60,10 @@ public class EnemySpawning : MonoBehaviour
         if (spawnedObjList.Count < 2)
         {
             int randomNum = Random.Range(0, 3);
-            
             GameObject b = Instantiate(objectToSpawn[randomNum], spawnPosition, Quaternion.identity);
-           // GameObject b= Instantiate(objectToSpawn[randomNum], spawnPosition, Quaternion.identity);
-            b.transform.LookAt(PlayerControllerScript.instance.transform);
-
+            Vector3 direction = lookAttarget.position - b.transform.position;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            b.transform.rotation = rotation;
             spawnedObjList.Add(b);
         }
     }

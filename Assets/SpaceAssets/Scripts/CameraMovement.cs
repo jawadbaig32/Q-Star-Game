@@ -46,7 +46,7 @@ public class CameraMovement : MonoBehaviour {
                 newPosition = new Vector3(transform.position.x, transform.position.y, Mathf.Lerp(transform.position.z, cameraSpeed * currentScrollPosition, 1f * Time.deltaTime));
                 break;
         }
-        transform.position = newPosition;
+//        transform.position = newPosition;
 
     }
 }
