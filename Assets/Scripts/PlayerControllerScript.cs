@@ -22,8 +22,11 @@ public class PlayerControllerScript : MonoBehaviour
     public Vector3 rotateAngle;
     public float speed;
     public bool isJoystick;
+    public GameObject fireEffect;
+    public GameObject enemy_DestroyEffect;
 
- 
+
+
 
 
 

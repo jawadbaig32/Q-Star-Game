@@ -14,24 +14,15 @@ public class EnemyMovement : MonoBehaviour
     public int enemyHealth = 3;
     public int scoreToGiveonDeath;
     public Transform lookAttarget;
-    
-
-
-
 
     // Start is called before the first frame update
     void Start()
     {
-  
-
         target2 = PlayerControllerScript.instance.transform.position;
-       SetAngle();
-
-
+        SetAngle();
         // transform.LookAt(EnemySpawning.instance.lookAttarget.transform);
         //transform.rotation = Quaternion.LookRotation(target2);
         // transform.rotation = Quaternion.FromToRotation(transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z), PlayerControllerScript.instance.transform.position = new Vector3(PlayerControllerScript.instance.transform.position.x, PlayerControllerScript.instance.transform.position.y, PlayerControllerScript.instance.transform.position.z));
-
     }
 
     private void Update()
@@ -43,7 +34,6 @@ public class EnemyMovement : MonoBehaviour
         //  transform.LookAt(target2);
         //   transform.LookAt(target2);
     }
-
 
 
     //Enemey Movement towards Player
@@ -119,10 +109,12 @@ public class EnemyMovement : MonoBehaviour
         if (enemyHealth == 0)
         {
             EnemyDied();
+
+
         }
     }
 
-
+   
 
 
 
@@ -139,6 +131,8 @@ public class EnemyMovement : MonoBehaviour
     {
         GameObject b = this.gameObject;
         Destroy(b);
+        GameObject o = Instantiate(PlayerControllerScript.instance.enemy_DestroyEffect, this.transform.position, transform.rotation);
+       // Destroy(o.gameObject, 2);
         EnemySpawning.instance.spawnedObjList.Remove(b);
         GameManager.instance.PlayerScore += scoreToGiveonDeath;
         GameManager.instance.shieldScoreCounter += scoreToGiveonDeath;

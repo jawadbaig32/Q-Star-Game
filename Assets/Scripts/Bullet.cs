@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
 {
     public float speed;
     public Rigidbody rb;
+ 
+    
     
 
 
@@ -24,17 +26,22 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("EnemiesWhite") )
         {
             other.gameObject.GetComponent<EnemyMovement>().ReceiveDamage(1);
+            GameObject b = Instantiate(PlayerControllerScript.instance.fireEffect, this.transform.position, Quaternion.identity);
+            Destroy(b.gameObject, 2);
+
             Destroy(this.gameObject);
         }
        else if (other.gameObject.CompareTag("EnemiesGreen") )
         {
             other.gameObject.GetComponent<EnemyMovement>().ReceiveDamage(1);
+            GameObject b = Instantiate(PlayerControllerScript.instance.fireEffect, this.transform.position, Quaternion.identity);
             Destroy(this.gameObject);
 
         }
       else  if (other.gameObject.CompareTag("EnemiesOrange") )
         {
             other.gameObject.GetComponent<EnemyMovement>().ReceiveDamage(1);
+            GameObject b = Instantiate(PlayerControllerScript.instance.fireEffect, this.transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
     }

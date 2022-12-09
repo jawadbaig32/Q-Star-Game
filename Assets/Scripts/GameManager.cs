@@ -9,11 +9,6 @@ public class GameManager : MonoBehaviour
  
     public int PlayerScore;
     public int shieldScoreCounter;
-
-
-
-
-
    
     private void Awake()
     {

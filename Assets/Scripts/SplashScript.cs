@@ -8,12 +8,13 @@ public class SplashScript : MonoBehaviour
 {
     public float time, seconds;
     public Image splashBar;
+    public GameObject fadepanel;
 
     // Start is called before the first frame update
     void Start()
     {
         seconds = 5f;
-        Invoke("LoadScene", seconds);
+        //Invoke("LoadScene", seconds);
     }
 
 
@@ -30,6 +31,10 @@ public class SplashScript : MonoBehaviour
         {
             time += Time.deltaTime;
             splashBar.fillAmount = time / seconds;
+            StartCoroutine(FadePanelDelay());
+
+
+
         }
     }
 
@@ -37,6 +42,25 @@ public class SplashScript : MonoBehaviour
     public void LoadScene()
     {
         SceneManager.LoadScene("CreditsScene");
+    }
+
+
+    IEnumerator<WaitForSeconds> FadePanelDelay()
+    {
+        yield return new WaitForSeconds(5f);
+        fadepanel.SetActive(true);
+        StartCoroutine(LoadCreditSceneDelay());
 
     }
+
+
+    IEnumerator<WaitForSeconds> LoadCreditSceneDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("CreditsScene");
+
+    }
+
+
+
 }
