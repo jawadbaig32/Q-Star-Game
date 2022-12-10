@@ -18,6 +18,7 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         target2 = PlayerControllerScript.instance.transform.position;
         SetAngle();
         // transform.LookAt(EnemySpawning.instance.lookAttarget.transform);
@@ -92,10 +93,21 @@ public class EnemyMovement : MonoBehaviour
               else  if (PlayerControllerScript.instance.playerhealth == 0)
                 {
                     PlayerControllerScript.instance.playerH_Bar_red.SetActive(false);
+
                 }
-            else    if (PlayerControllerScript.instance.playerhealth < 0)
+              else    if (PlayerControllerScript.instance.playerhealth < 0)
                 {
                     GameOver.ShowUI();
+                    Time.timeScale = 0;
+                    string name = PlayerPrefs.GetString("Input", "");
+                    print(GameManager.instance.PlayerScore);
+                    NetworkAPImanager.instance.saveToLeaderboard(name, GameManager.instance.PlayerScore);
+                    
+
+
+
+                    //print(PlayerPrefs.GetString(GameManager.instance.PlayerScore);
+
                 }
             }
         }
@@ -132,12 +144,12 @@ public class EnemyMovement : MonoBehaviour
         GameObject b = this.gameObject;
         Destroy(b);
         GameObject o = Instantiate(PlayerControllerScript.instance.enemy_DestroyEffect, this.transform.position, transform.rotation);
-       // Destroy(o.gameObject, 2);
+        Destroy(o.gameObject, 2);
         EnemySpawning.instance.spawnedObjList.Remove(b);
         GameManager.instance.PlayerScore += scoreToGiveonDeath;
         GameManager.instance.shieldScoreCounter += scoreToGiveonDeath;
-        PlayerControllerScript.instance.playerScoreText.text = PlayerPrefs.GetInt("Score", GameManager.instance.PlayerScore).ToString();
-
+        PlayerControllerScript.instance.playerScoreText.text = GameManager.instance.PlayerScore.ToString();
+        //PlayerControllerScript.instance.playerScoreText.text = PlayerPrefs.GetInt("Score", GameManager.instance.PlayerScore).ToString();
         if (GameManager.instance.shieldScoreCounter  >=7000)
         {
             PlayerControllerScript.instance.shieldCounter = 2;

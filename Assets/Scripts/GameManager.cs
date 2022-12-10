@@ -9,7 +9,14 @@ public class GameManager : MonoBehaviour
  
     public int PlayerScore;
     public int shieldScoreCounter;
-   
+    public GameObject laodingText;
+    //public GameObject leaderboardPanel;
+
+
+    private void Start()
+    {
+        Time.timeScale = 1;
+    }
     private void Awake()
     {
         if (instance != null)
@@ -18,9 +25,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-
             instance = this;
-
         }
         DontDestroyOnLoad(this.gameObject);
     }

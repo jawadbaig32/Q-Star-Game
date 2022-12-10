@@ -35,6 +35,7 @@ public class Bullet : MonoBehaviour
         {
             other.gameObject.GetComponent<EnemyMovement>().ReceiveDamage(1);
             GameObject b = Instantiate(PlayerControllerScript.instance.fireEffect, this.transform.position, Quaternion.identity);
+            Destroy(b.gameObject, 2);
             Destroy(this.gameObject);
 
         }
@@ -42,6 +43,7 @@ public class Bullet : MonoBehaviour
         {
             other.gameObject.GetComponent<EnemyMovement>().ReceiveDamage(1);
             GameObject b = Instantiate(PlayerControllerScript.instance.fireEffect, this.transform.position, Quaternion.identity);
+            Destroy(b.gameObject, 2);
             Destroy(this.gameObject);
         }
     }

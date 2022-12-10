@@ -24,6 +24,7 @@ public class PlayerControllerScript : MonoBehaviour
     public bool isJoystick;
     public GameObject fireEffect;
     public GameObject enemy_DestroyEffect;
+    public GameObject loadingText;
 
 
 
@@ -43,7 +44,11 @@ public class PlayerControllerScript : MonoBehaviour
     }
     private void Start()
     {
-        playerScoreText.text = PlayerPrefs.GetInt("Score", 0).ToString();
+        shieldImage.SetActive(false);
+        GameManager.instance.PlayerScore = 0;
+        GameManager.instance.shieldScoreCounter = 0;
+        playerScoreText.text = GameManager.instance.PlayerScore.ToString();
+        Time.timeScale = 1;
     }
 
 
