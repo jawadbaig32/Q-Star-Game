@@ -26,6 +26,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("EnemiesWhite") )
         {
             other.gameObject.GetComponent<EnemyMovement>().ReceiveDamage(1);
+            EnemySpawning.instance.DecreaseSpawnInterval();
             GameObject b = Instantiate(PlayerControllerScript.instance.fireEffect, this.transform.position, Quaternion.identity);
             Destroy(b.gameObject, 2);
 
@@ -34,6 +35,7 @@ public class Bullet : MonoBehaviour
        else if (other.gameObject.CompareTag("EnemiesGreen") )
         {
             other.gameObject.GetComponent<EnemyMovement>().ReceiveDamage(1);
+            EnemySpawning.instance.DecreaseSpawnInterval();
             GameObject b = Instantiate(PlayerControllerScript.instance.fireEffect, this.transform.position, Quaternion.identity);
             Destroy(b.gameObject, 2);
             Destroy(this.gameObject);
@@ -42,6 +44,7 @@ public class Bullet : MonoBehaviour
       else  if (other.gameObject.CompareTag("EnemiesOrange") )
         {
             other.gameObject.GetComponent<EnemyMovement>().ReceiveDamage(1);
+            EnemySpawning.instance.DecreaseSpawnInterval();
             GameObject b = Instantiate(PlayerControllerScript.instance.fireEffect, this.transform.position, Quaternion.identity);
             Destroy(b.gameObject, 2);
             Destroy(this.gameObject);

@@ -12,7 +12,7 @@ public class CreditScript : MonoBehaviour
     void Start()
     {
 
-
+        GameManager.instance.gamePlaySound.Play();
         StartCoroutine(FadePanelDelay());
        Invoke("LoadMainMenuScene", seconds);
         

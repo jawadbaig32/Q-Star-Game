@@ -9,12 +9,22 @@ public class GameManager : MonoBehaviour
  
     public int PlayerScore;
     public int shieldScoreCounter;
-    public GameObject laodingText;
-    //public GameObject leaderboardPanel;
+    public AudioSource btnSound;
+    public AudioSource gameOverSound;
+    public AudioSource destroyEnemySound;
+    public AudioSource fireSound;
+    public AudioSource gamePlaySound;
+    public AudioSource playerDiedSound;
+    public GameObject playerDiedEffect;
+    public AudioSource shieldEnabledSound;
+    public float enemySpeed;
+    public int enemyCount = 2;
+
 
 
     private void Start()
     {
+        
         Time.timeScale = 1;
     }
     private void Awake()
@@ -32,11 +42,28 @@ public class GameManager : MonoBehaviour
 
 
 
+    public void GameOverOnDead()
+    {
+
+        StartCoroutine(GameOverDelay());
+    }
+
+    IEnumerator GameOverDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        GameOver.ShowUI();
+        Time.timeScale = 0;
+        PlayerControllerScript.instance.GetComponent<BoxCollider>().enabled = false;
+    }
 
 
 
 
-
+    public void GameOverColliderDisable()
+    {
+        GameManager.instance.gamePlaySound.volume = 1f;
+        PlayerControllerScript.instance.GetComponent<BoxCollider>().enabled = false;
+    }
 
 
 }

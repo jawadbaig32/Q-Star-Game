@@ -13,6 +13,7 @@ public class LeaderBoard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.instance.gameOverSound.Play();
         NetworkAPImanager.instance.getFromLeaderboard((response) =>
         {
             print(response);

@@ -11,7 +11,6 @@ public class NetworkAPImanager : MonoBehaviour
     {
         instance = this;
     }
-
     public void saveToLeaderboard(string name, int score)
     {
         new WebRequest(this, new { nickname = name, score = score}, "https://qstargame.tecshield.io/api/score/add", RequestMethod.POST,EncodeMethod.JSON );

@@ -6,8 +6,16 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
 	public static GameOver instance;
-	
-	public static GameOver ShowUI()
+
+
+
+
+
+	private void Start()
+    {
+		//GameManager.instance.gameOverSound.Play();
+    }
+    public static GameOver ShowUI()
 	{
 		if (instance == null)
 		{
@@ -29,17 +37,19 @@ public class GameOver : MonoBehaviour
 
     public void OnClick_YesBtn()
     {
-
+		GameManager.instance.btnSound.Play();
 		SceneManager.LoadScene("GamePlay");
 
     }
 
 	public void OnClick_NoBtn()
 	{
-        SceneManager.LoadScene("MainMenu");
-
-
+		GameManager.instance.btnSound.Play();
+		SceneManager.LoadScene("MainMenu");
     }
+
+
+
 
 
 

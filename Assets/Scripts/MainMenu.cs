@@ -11,10 +11,14 @@ public class MainMenu : MonoBehaviour
 
     public void OnClick_StartBtn()
     {
+        GameManager.instance.btnSound.Play();
         SceneManager.LoadScene("GamePlay");
     }
 
+    private void Start()
+    {
 
+    }
 
     private void Update()
     {
@@ -26,14 +30,15 @@ public class MainMenu : MonoBehaviour
 
     public void ShowLeeaderBoard()
     {
-
+        GameManager.instance.btnSound.Play();
         leaderBoardPanel.SetActive(true);
-
     }
 
 
     public void CloseLeeaderBoard()
     {
+
+        GameManager.instance.btnSound.Play();
         leaderBoardPanel.SetActive(false);
     }
 }

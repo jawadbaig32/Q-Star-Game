@@ -1997,7 +1997,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerScore: 0
   shieldScoreCounter: 0
-  laodingText: {fileID: 0}
+  btnSound: {fileID: 0}
+  gameOverSound: {fileID: 0}
+  destroyEnemySound: {fileID: 0}
+  fireSound: {fileID: 0}
+  gamePlaySound: {fileID: 0}
+  playerDiedSound: {fileID: 0}
+  playerDiedEffect: {fileID: 0}
 --- !u!4 &486800942
 Transform:
   m_ObjectHideFlags: 0
@@ -6572,7 +6578,9 @@ MonoBehaviour:
   isJoystick: 1
   fireEffect: {fileID: 6850947184267353349, guid: e61e89c1dcaf447969582f4b53c6012d, type: 3}
   enemy_DestroyEffect: {fileID: 1375980835891139063, guid: 1c300beb363e4421d9111ec8c3535169, type: 3}
+  playerDiedEffect: {fileID: 1375980835891139063, guid: 1c300beb363e4421d9111ec8c3535169, type: 3}
   loadingText: {fileID: 0}
+  playerMesh: {fileID: 7146665266688066788}
 --- !u!65 &2207825749358148671
 BoxCollider:
   m_ObjectHideFlags: 0

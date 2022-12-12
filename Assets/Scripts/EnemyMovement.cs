@@ -10,10 +10,11 @@ public class EnemyMovement : MonoBehaviour
 
     public Transform target;
     Vector3 target2;
-    private float speed;
+    public float speed=1;
     public int enemyHealth = 3;
     public int scoreToGiveonDeath;
     public Transform lookAttarget;
+   
 
     // Start is called before the first frame update
     void Start()
@@ -65,7 +66,6 @@ public class EnemyMovement : MonoBehaviour
                 PlayerControllerScript.instance.shieldImage.SetActive(true);
                 PlayerControllerScript.instance.playerhealth -= 0;
                 PlayerControllerScript.instance.shieldCounter -= 1;
-
                 if (PlayerControllerScript.instance.shieldCounter <= -1)
                 {
                     PlayerControllerScript.instance.shieldImage.SetActive(false);
@@ -85,33 +85,61 @@ public class EnemyMovement : MonoBehaviour
                     PlayerControllerScript.instance.playerH_Bar_green.SetActive(false);
                     PlayerControllerScript.instance.playerH_Bar_yellow.SetActive(true);
                 }
-              else  if (PlayerControllerScript.instance.playerhealth == 1)
+                else if (PlayerControllerScript.instance.playerhealth == 1)
                 {
                     PlayerControllerScript.instance.playerH_Bar_yellow.SetActive(false);
                     PlayerControllerScript.instance.playerH_Bar_red.SetActive(true);
                 }
-              else  if (PlayerControllerScript.instance.playerhealth == 0)
+                else if (PlayerControllerScript.instance.playerhealth == 0)
                 {
                     PlayerControllerScript.instance.playerH_Bar_red.SetActive(false);
 
                 }
-              else    if (PlayerControllerScript.instance.playerhealth < 0)
+                else if (PlayerControllerScript.instance.playerhealth < 0)
                 {
-                    GameOver.ShowUI();
-                    Time.timeScale = 0;
+                    EnemySpawning.instance.IsGameover = true;
+                    //Destroy(gameObject); 
+                    GameManager.instance.playerDiedSound.Play();
+                    GameObject o = Instantiate(GameManager.instance.playerDiedEffect, other.transform.position, transform.rotation);
+                    Destroy(o.gameObject, 2);
+                    //GameManager.instance.enemySpeed = 0f;
+                    PlayerControllerScript.instance.playerMesh.GetComponent<MeshRenderer>().enabled = false;
                     string name = PlayerPrefs.GetString("Input", "");
                     print(GameManager.instance.PlayerScore);
                     NetworkAPImanager.instance.saveToLeaderboard(name, GameManager.instance.PlayerScore);
-                    
-
-
-
-                    //print(PlayerPrefs.GetString(GameManager.instance.PlayerScore);
+                    GameManager.instance.GameOverColliderDisable();
+                    GameManager.instance.GameOverOnDead();
 
                 }
             }
+
         }
+
+        else if (other.gameObject.CompareTag("EnemiesWhite") || other.gameObject.CompareTag("EnemiesGreen") || other.gameObject.CompareTag("EnemiesOrange"))
+        {
+            this.transform.position = new Vector3(this.transform.position.x + Random.Range(2, 4), this.transform.position.y , this.transform.position.z + Random.Range(2, 4)); ;
+            print("new val");
+        }
+
+
+
     }
+
+
+
+
+
+    
+
+
+
+    //IEnumerator GameOverDelay()
+    //{
+    //    yield return new WaitForSeconds(5f);
+    //    print("Ganmeover");
+    //    GameOver.ShowUI();
+    //}
+
 
 
     // EnemyHealth
@@ -141,6 +169,7 @@ public class EnemyMovement : MonoBehaviour
     //Enemy Death Function
     public void EnemyDied()
     {
+        //GameManager.instance.destroyEnemySound.Play();
         GameObject b = this.gameObject;
         Destroy(b);
         GameObject o = Instantiate(PlayerControllerScript.instance.enemy_DestroyEffect, this.transform.position, transform.rotation);
@@ -152,6 +181,8 @@ public class EnemyMovement : MonoBehaviour
         //PlayerControllerScript.instance.playerScoreText.text = PlayerPrefs.GetInt("Score", GameManager.instance.PlayerScore).ToString();
         if (GameManager.instance.shieldScoreCounter  >=7000)
         {
+            GameManager.instance.enemyCount += 1;
+            GameManager.instance.shieldEnabledSound.Play();
             PlayerControllerScript.instance.shieldCounter = 2;
             PlayerControllerScript.instance.shieldImage.SetActive(true);
             PlayerControllerScript.instance.shieldEnabled = true;

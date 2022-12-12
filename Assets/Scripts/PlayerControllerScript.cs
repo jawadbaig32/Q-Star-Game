@@ -24,11 +24,9 @@ public class PlayerControllerScript : MonoBehaviour
     public bool isJoystick;
     public GameObject fireEffect;
     public GameObject enemy_DestroyEffect;
+    public GameObject playerDiedEffect;
     public GameObject loadingText;
-
-
-
-
+    public GameObject playerMesh;
 
 
     private void Awake()
@@ -44,6 +42,7 @@ public class PlayerControllerScript : MonoBehaviour
     }
     private void Start()
     {
+        GameManager.instance.gamePlaySound.volume=0.3f;
         shieldImage.SetActive(false);
         GameManager.instance.PlayerScore = 0;
         GameManager.instance.shieldScoreCounter = 0;
@@ -55,8 +54,6 @@ public class PlayerControllerScript : MonoBehaviour
     // JoyStick Controller
     public void RotatePlayer()
     {
-
-
 
         if (_joyStick.Vertical == 0 || _joyStick.Horizontal == 0)
         {
@@ -81,9 +78,7 @@ public class PlayerControllerScript : MonoBehaviour
 
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Horizontal") == 0)
         {
-
             isJoystick = true;
-
         }
 
             if (!isJoystick)
@@ -92,7 +87,6 @@ public class PlayerControllerScript : MonoBehaviour
             {
                 isJoystick = false;
                 transform.Rotate(rotateAngle * speed * Time.deltaTime);
-
             }
             else if (Input.GetAxis("Horizontal") < 0)
             {
@@ -110,6 +104,8 @@ public void BulletSpawn()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+
+            GameManager.instance.fireSound.Play();
             GameObject bulletFire = Instantiate(playerFire, playerFirepos.position, playerFirepos.rotation);
             Destroy(bulletFire, 5);
         }
@@ -120,6 +116,8 @@ public void BulletSpawn()
     // Player Fires with OnScreenBtn
     public void BulletSpawnWithBtn()
     {
+
+            GameManager.instance.fireSound.Play();
             GameObject bulletFire = Instantiate(playerFire, playerFirepos.position, playerFirepos.rotation);
             Destroy(bulletFire, 5);
     }
