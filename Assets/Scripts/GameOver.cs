@@ -13,7 +13,7 @@ public class GameOver : MonoBehaviour
 
 	private void Start()
     {
-		//GameManager.instance.gameOverSound.Play();
+		GameManager.instance.gameOverSound.Play();
     }
     public static GameOver ShowUI()
 	{
